@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Fun Learning Zone</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<script src="https://code.jquery.com/mobile/1.5.0-alpha.1/jquery.mobile-1.5.0-alpha.1.min.js"></script>
+	<script src="Winwheel.min.js"></script>
+	<style type="text/css">
+		html{
+			overflow-y: auto;
+		}
+		.sidenav {
+		  height: 100%;
+		  width: 0;
+		  position: fixed;
+		  z-index: +2;
+		  top: 0;
+		  left: 0;
+		  background-color: #111;
+		  overflow-x: hidden;
+		  transition: 0.5s;
+		  padding-top: 80px;
+		}
+
+		.sidenav a {
+		  padding: 8px 8px 8px 32px;
+		  text-decoration: none;
+		  font-size: 20px;
+		  color: #818181;
+		  display: block;
+		  transition: 0.3s;
+		}
+
+		.sidenav a:hover {
+		  color: #f1f1f1;
+		}
+
+		.sidenav .closebtn {
+		  position: absolute;
+		  top: 60px;
+		  right: 25px;
+		  font-size: 36px;
+		  margin-left: 50px;
+		}
+		.sidenav::-webkit-scrollbar {
+		  width: 10px !important;
+		}
+		.sidenav::-webkit-scrollbar-track {
+		  background: #111 !important; 
+		}
+		.sidenav::-webkit-scrollbar-thumb {
+		  background: #818181 !important; 
+		}
+		.sidenav::-webkit-scrollbar-thumb:hover {
+		  background: #555 !important; 
+		}
+		@media screen and (max-height: 450px) {
+		  .sidenav {padding-top: 15px;}
+		  .sidenav a {font-size: 18px;}
+		}
+		::-webkit-scrollbar {
+		  width: 10px;
+		}
+		::-webkit-scrollbar-track {
+		  background-color:#045de9 !important;
+		  background-image:linear-gradient(90deg, #045de9 0%, #09c6f9 60%) !important; 
+		}
+		::-webkit-scrollbar-thumb {
+		  background-color:#045de9 !important;
+		  background-image:linear-gradient(270deg, #045de9 0%, #09c6f9 60%) !important; 
+		}
+		::-webkit-scrollbar-thumb:hover {
+		  background: #555; 
+		}
+		.mainbox{
+			position: relative;
+			width: 340px;
+			height: 340px;
+		}
+		.mainbox:after{
+			position: absolute;
+			content: '';
+			width: 32px;
+			height: 32px;
+			background: url('arrow-left.png') no-repeat;
+			background-size: 32px;
+			right: -30px;
+			top: 50%;
+			transform: translateY(-50%);
+		}
+		.box{
+			width: 100%;
+			height: 100%;
+			position: relative;
+			border-radius: 50%;
+			border: 10px solid #fff;
+			overflow: hidden;
+			transition: all ease 5s;
+			border-image:linear-gradient(to bottom #ccc, #fff) 1 100%;
+		}
+		.mainbox span{
+			width: 50%;
+			height: 50%;
+			display: inline-block;
+			position: absolute;
+		}
+		.span1{
+			clip-path: polygon(0 92%, 100% 50%, 0 8%);
+			background-color: #ffeb3b;
+			top: 80px;
+			left: 0;
+		}
+		.span2{
+			clip-path: polygon(100% 92%, 0 50%, 100% 8%);
+			background-color: #e91e63;
+			top: 80px;
+			right: 0;
+		}
+		.span3{
+			clip-path: polygon(50% 0%, 8% 100%, 92% 100%);
+			background-color: #4caf50;
+			bottom: 0;
+			left: 80px;
+		}
+		.span4{
+			clip-path: polygon(50% 100%, 92% 0, 8% 0);
+			background-color: #3f51b5;
+			top: 0;
+			left: 80px;
+		}
+
+		/*Little bit adjust the value*/
+		.box1 .span3 b{
+			 transform: translate(-50%, -50%) rotate(-270deg);
+		}
+		.box1 .span1 b,
+		.box2 .span1 b{
+			transform: translate(-50%, -50%) rotate(185deg);
+		}
+		.box2 .span3 b{
+			transform: translate(-50%, -50%) rotate(90deg);
+		}
+		.box1 .span4 b,
+		.box2 .span4 b{
+			transform: translate(-50%, -50%) rotate(-85deg);
+		}
+
+		.box2{
+			width: 100%;
+			height: 100%;
+			transform: rotate(-135deg);
+		}
+		.mainbox span b{
+			width: 65px;
+			height: 65px;
+			line-height: 65px;
+			border-radius: 50%;
+			font-size: 26px;
+			text-align: center;
+			background-color: #fff;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			box-shadow: inset 0 3px 3px 0 #717171;
+		}
+		.spin{
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			width: 75px;
+			height: 75px;
+			border-radius: 50%;
+			border: 4px solid #fff;
+			background-color: #ff5722;
+			color: #fff;
+			box-shadow: 0 5px 20px #000;
+			font-weight: bold;
+			font-size: 22px;
+			cursor: pointer;
+		}
+		.spin:active{
+			width: 70px;
+			height: 70px;
+			font-size: 20px;
+		}
+
+		.mainbox.animate:after{
+			animation: animateArrow 0.7s ease infinite;
+		}
+		@keyframes animateArrow{
+			50%{
+				right: -40px;
+			}
+		}
+	</style>
+	<script>
+	function openNav() {
+	  document.getElementById("mySidenav").style.width = "250px";
+	}
+	function closeNav() {
+	  document.getElementById("mySidenav").style.width = "0";
+	  $( "#mySidenav" ).panel( "close" );
+	}
+	$( document ).on( "pagecreate", ".body", function() {
+	    $( document ).on( "swipeleft swiperight", ".body", function( e ) {
+	        if ( $.mobile.activePage.jqmData( "panel" ) !== "open" ) {
+	            if ( e.type === "swiperight" ) {
+					$( "#mySidenav" ).panel( "open" );
+                    document.getElementById("mySidenav").style.width = "250px";
+	            }
+	        }
+	    });
+	});
+	</script>
+</head>
+<body data-role = "page" class="body">
+	<nav style="background-color:#045de9 !important;background-image:linear-gradient(360deg, #045de9 0%, #09c6f9 60%) !important;" class="navbar navbar-expand-lg navbar-light fixed-top">
+	  <button onclick="openNav()" class="pull-left" type="button" style="border:none;background-color: transparent;">
+	    <i style="color:white !important;font-size: 22px;" class="fa fa-bars" aria-hidden="true"></i>
+	  </button>
+	  <a style="font-weight: bold !important;color:white;" class="navbar-brand navbar-right pull-right ml-auto" href="#"><span style="color:red;">free</span> Learning <span style="color:red;font-size: 25px;baseline-shift: super;font-family: times new roman;">Z</span>one</a>
+	</nav>
+	<div data-role="panel" id="mySidenav" class="sidenav">
+	  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+	  <a href="#">Games</a>
+	  <a href="#">Style</a>
+	  <a href="#">Speed</a>
+	  <a href="#">The Future</a>
+	  <a href="#">The Now</a>
+	  <a href="#">The How</a>
+	  <a href="#">Big Stuff</a>
+	  <a href="#">Small Stuff</a>
+	  <a href="#">Origins</a>
+	  <a href="#">Water</a>
+	  <a href="#">Outer Space</a>
+	  <a href="#">SciTech</a>
+	  <a href="#">Money & Biz</a>
+	  <a href="#">Side Hustles</a>
+	  <a href="#">Sports</a>
+	  <a href="#">Energy</a>
+	  <a href="#">想</a>
+	  <a href="#">Peeps</a>
+	  <a href="#">Song & Dance</a>
+	  <a href="#">Cool Stuff</a>
+	  <a href="#">Things that Grow</a>
+	  <a href="#">Planet Earth</a>
+	</div>
+	<main style="padding-top: 70px;overflow: auto !important;">
+		<div style="overflow: auto !important;" class="container-fluid">
+			<div class="card" style="width: 100%;">
+				<div class="row">
+					<div class="col-6">
+						<div id="mainbox" class="mainbox">
+							<div id="box" class="box">
+								<div class="box1">
+									<span class="span1"><b>cat 1</b></span>
+									<span class="span2"><b>cat 2</b></span>
+									<span class="span3"><b>cat 3</b></span>
+									<span class="span4"><b>cat 4</b></span>
+								</div>
+								<div class="box2">
+									<span class="span1"><b>cat 5</b></span>
+									<span class="span2"><b>cat 6</b></span>
+									<span class="span3"><b>cat 7</b></span>
+									<span class="span4"><b>cat 8</b></span>
+								</div>
+							</div>
+
+							<button class="spin" onclick="myfunction()">SPIN</button>
+						</div>
+					</div>
+					<div class="col-6">
+						<h2 style="padding-top: 100px;">Randomly Selects Category For You</h2>
+						<p style="width:85%;" class="text-wrap">Learn with Fun for Free. Click on The Select Button To Randomly Select a Category For You</p>
+					</div>
+				</div>
+			</div>
+			<br>
+			<div class="card">
+				<a href="./category.html?id=idofpage"><div style="background-image: url('...here goes image url...');width: 100%;height: 340px;background-color: #202020;"  class="card-img-top" width="100%" src="" alt="Card image cap">
+					<div style="background-image: url('player.png');background-position: center;background-repeat: no-repeat;width: 100%;height: 100%;" alt="Card image cap" style="width: 100%;height: 340px;"></div>
+				</div></a>
+				<div class="card-body">
+					<h5 class="card-title">Category Name</h5>
+					<p class="card-text">The Description of Category Goes Here this will be a wrapped text.</p>
+				</div>
+			</div>
+			<br>
+			<div class="card">
+				<a href="./category.html?id=idofpage"><div style="background-image: url('...here goes image url...');width: 100%;height: 340px;background-color: #202020;" width="100%" class="card-img-top" alt="Card image cap">
+					<div style="background-image: url('player.png');background-position: center;background-repeat: no-repeat;width: 100%;height: 100%;" alt="Card image cap" style="width: 100%;height: 340px;"></div>
+				</div></a>
+				<div class="card-body">
+					<h5 class="card-title">Category Name</h5>
+					<p class="card-text">The Description of Category Goes Here this will be a wrapped text.</p>
+				</div>
+			</div>
+			<br>
+			<div class="card">
+				<a href="./category.html?id=idofpage"><div style="background-image: url('...here goes image url...');width: 100%;height: 340px;background-color: #202020;" width="100%" class="card-img-top" alt="Card image cap">
+					<div style="background-image: url('player.png');background-position: center;background-repeat: no-repeat;width: 100%;height: 100%;" alt="Card image cap" style="width: 100%;height: 340px;"></div>
+				</div></a>
+				<div class="card-body">
+					<h5 class="card-title">Category Name</h5>
+					<p class="card-text">The Description of Category Goes Here this will be a wrapped text.</p>
+				</div>
+			</div>
+			<br>
+			<div class="card">
+				<a href="./category.html?id=idofpage"><div style="background-image: url('...here goes image url...');width: 100%;height: 340px;background-color: #202020;" width="100%" class="card-img-top" alt="Card image cap">
+					<div style="background-image: url('player.png');background-position: center;background-repeat: no-repeat;width: 100%;height: 100%;" alt="Card image cap" style="width: 100%;height: 340px;"></div>
+				</div></a>
+				<div class="card-body">
+					<h5 class="card-title">Category Name</h5>
+					<p class="card-text">The Description of Category Goes Here this will be a wrapped text.</p>
+				</div>
+			</div>
+			<br>
+			<div class="card">
+				<a href="./category.html?id=idofpage"><div style="background-image: url('...here goes image url...');width: 100%;height: 340px;background-color: #202020;" width="100%" class="card-img-top" alt="Card image cap">
+					<div style="background-image: url('player.png');background-position: center;background-repeat: no-repeat;width: 100%;height: 100%;" alt="Card image cap" style="width: 100%;height: 340px;"></div>
+				</div></a>
+				<div class="card-body">
+					<h5 class="card-title">Category Name</h5>
+					<p class="card-text">The Description of Category Goes Here this will be a wrapped text.</p>
+				</div>
+			</div>
+			<br><div class="card">
+				<a href="./category.html?id=idofpage"><div style="background-image: url('...here goes image url...');width: 100%;height: 340px;background-color: #202020;" width="100%" class="card-img-top" alt="Card image cap">
+					<div style="background-image: url('player.png');background-position: center;background-repeat: no-repeat;width: 100%;height: 100%;" alt="Card image cap" style="width: 100%;height: 340px;"></div>
+				</div></a>
+				<div class="card-body">
+					<h5 class="card-title">Category Name</h5>
+					<p class="card-text">The Description of Category Goes Here this will be a wrapped text.</p>
+				</div>
+			</div>
+			<br>
+		</div>
+	</main>
+	<footer style="position: fixed;left: 0;bottom: 0;width: 100%;background-color: red;color: white;text-align: center;background-color:#045de9 !important;background-image:linear-gradient(180deg, #045de9 0%, #09c6f9 90%) !important;height:53px;z-index: +3;">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-3">
+					<button style="border:none;background-color: transparent;">
+						<i style="color: white;font-size: 40px;padding-top: 6px;" class="fa fa-home" aria-hidden="true"></i>
+					</button>
+				</div>
+				<div class="col-3">
+					<button style="border:none;background-color: transparent;">
+						<i style="color: white;font-size: 40px;padding-top: 6px;" class="fa fa-camera" aria-hidden="true"></i>
+					</button>
+				</div>
+				<div class="col-3">
+					<button style="border:none;background-color: transparent;">
+						<i style="color: white;font-size: 40px;padding-top: 6px;" class="fa fa-money" aria-hidden="true"></i>
+					</button>
+				</div>
+				<div class="col-3">
+					<button style="border:none;background-color: transparent;">
+						<i style="color: white;font-size: 40px;padding-top: 6px;" class="fa fa-user" aria-hidden="true"></i>
+					</button>
+				</div>
+			</div>
+		</div>
+	</footer>
+</body>
+<script>
+	
+function myfunction(){
+
+
+	var x = 1024; //min value
+	var y = 9999; // max value
+
+	var deg = Math.floor(Math.random() * (x - y)) + y;
+
+	document.getElementById('box').style.transform = "rotate("+deg+"deg)";
+
+	var element = document.getElementById('mainbox');
+	element.classList.remove('animate');
+	setTimeout(function(){
+		element.classList.add('animate');
+	}, 5000); //5000 = 5 second
+}
+
+</script>
+</html>
